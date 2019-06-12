@@ -47,34 +47,19 @@ public class GameEndpoint {
     @OnMessage
     public void onMessage(Session session, String message) throws JSONException, IOException {
         JSONObject obj = new JSONObject(message);
-        JSONArray origem = obj.getJSONArray("origem");
-        JSONArray destino = obj.getJSONArray("destino");
-        String tipo = obj.getString("type");
+        JSONArray location = obj.getJSONArray("location");
+        //String tipo = obj.getString("type");
         
-        if((boardGame.bluePeacesInWaiting > 0 || boardGame.redPeacesInWaiting > 0) && tipo.equals("regular")){;
-            boardGame.selectLine(session == player1 ? BoardGame.BLUE : BoardGame.RED, destino.getInt(0), destino.getInt(1));    
-            if (boardGame.isMill(session == player1 ? BoardGame.BLUE : BoardGame.RED, destino.getInt(0), destino.getInt(1))) {
-                sendMessage("{\"type\": 2, \"tabuleiro\":"+boardGame+" ,\"message\": \"Um moinho foi feito.\", \"turn\": " + boardGame.getTurn() +"}");
-            } else{
-                sendMessage("{\"type\": 1, \"tabuleiro\": " + boardGame + ", \"turn\": " + boardGame.getTurn() + "}");
-            }
-            
-        }else if(((boardGame.bluePeacesInWaiting == 0 && boardGame.bluePeacesInBoard > 2) || (boardGame.redPeacesInWaiting == 0 && boardGame.redPeacesInBoard > 2)) && tipo.equals("regular")){
-            boardGame.move(session == player1 ? BoardGame.BLUE : BoardGame.RED, origem.getInt(0), origem.getInt(1), destino.getInt(0), destino.getInt(1));
-            if (boardGame.isMill(session == player1 ? BoardGame.BLUE : BoardGame.RED, destino.getInt(0), destino.getInt(1))) {
-                sendMessage("{\"type\": 2, \"tabuleiro\":"+boardGame+" ,\"message\": \"Um moinho foi feito.\", \"turn\": " + boardGame.getTurn() +"}");
-            } else{
-                sendMessage("{\"type\": 1, \"tabuleiro\": " + boardGame + ", \"turn\": " + boardGame.getTurn() + "}");
-            }
-            
-        } 
-        else if (boardGame.bluePeacesInBoard <= 2 && boardGame.bluePeacesInWaiting == 0) {
-            sendMessage("{\"type\": 3, \"message\": \"Fim de Jogo. O jogador com peças vermelhas ganhou.\"}");
+        if(boardGame.hasSelectableLine()){
+            boardGame.selectLine(session == player1 ? BoardGame.BLUE : BoardGame.RED, location.getInt(0), location.getInt(1));    
+        }
+        else if ((boardGame.redPoints > boardGame.bluePoints) && !boardGame.hasSelectableLine()) {
+            sendMessage("{\"type\": 2, \"message\": \"Fim de Jogo. O jogador com peças vermelhas ganhou.\"}");
             player1.close();
             player2.close();
         }
-        else if (boardGame.redPeacesInBoard <= 2 && boardGame.bluePeacesInWaiting == 0) {
-            sendMessage("{\"type\": 3, \"message\": \"Fim de Jogo. O jogador com peças azuis ganhou.\"}");
+        else if ((boardGame.bluePoints > boardGame.redPoints) && !boardGame.hasSelectableLine()) {
+            sendMessage("{\"type\": 2, \"message\": \"Fim de Jogo. O jogador com peças azuis ganhou.\"}");
             player1.close();
             player2.close();
         }

@@ -34,13 +34,13 @@ function allowDrop(ev) {
 }
 
 //monta o boardgame e atualiza
-function montarTabela(boardgame, status) {
+function montarTabela(boardgame) {
     let table = document.getElementsByTagName("table")[0];
     boardgame.forEach(function (row, rowIndex) {
         row.forEach(function (col, colIndex) {
             var cell = table.rows[rowIndex].cells[colIndex];
-            /*cell.innerHTML = (col === 0 ? "" : (col === 1 ? '<img src="resources/image/white.png" alt="" width="40" height="40">' 
-                    : '<img src="resources/image/black.png" alt="" width="40" height="40">'));*/
+            cell.style.backaground = (col === 0 ? "" : (col === 1 ? 'blue' 
+                    : 'red'));
                     
             var x = cell.firstChild;
             if (x) {
@@ -50,23 +50,24 @@ function montarTabela(boardgame, status) {
                     ev.dataTransfer.setData("text/plain", "[" + coordinates(this.parentNode) + "]");
                 };
             }
-            cell.ondragover = function(ev){
+            /*cell.ondragover = function(ev){
                 ev.preventDefault();
             };
             cell.ondrop = function(ev) {
                 ev.preventDefault();
                 connection.webSocket.send(JSON.stringify({origem: JSON.parse(ev.dataTransfer.getData("text/plain")), destino: coordinates(this), type:status}));
-            };
+            };*/
             
-            cell.onmousemove = function(ev){
-                ev.preventDefault();
-                cell[0].style.backgroundColor = "yellow";  
-            };
+            /*cell.onmousemove = function(ev){
+                //ev.preventDefault();
+                //cell[0].style.backgroundColor = "yellow";  
+            };*/
 
             //inserir peça no tabuleiro
             cell.onclick = function(event){
                 event.preventDefault();
-                connection.webSocket.send(JSON.stringify({origem:[], destino: coordinates(this), type:status}));
+                console.log("entrou");
+                connection.webSocket.send(JSON.stringify({location: coordinates(this)}));
             };
         });
     });

@@ -13,10 +13,13 @@ import java.util.Arrays;
  */
 public class BoardGame {
     private int turn = 0;
-    private int bluePoints = 0;
-    private int redPoints = 0;
+    public int bluePoints = 0;
+    public int redPoints = 0;
     public static int BLUE = 3;
     public static int RED = 4;
+    
+    //linha que pode ser selecionável
+    private int selectableLine = 1;
     
     //0 = pontos; 1 - linhas selecionaveis 2 - box em branco
     private int[][] boardgame = {
@@ -27,17 +30,23 @@ public class BoardGame {
         {0, 1, 0, 1, 0, 1, 0, 1, 0},
         {1, 2, 1, 2, 1, 2, 1, 2, 1},
         {0, 1, 0, 1, 0, 1, 0, 1, 0},};
-    
-    public int bluePeacesInWaiting = 9;
-    public int bluePeacesInBoard = 0;
-    
-    public int redPeacesInWaiting = 9;
-    public int redPeacesInBoard = 0;
+   
 
     public int getTurn() {
         return turn;
     }
-   
+    
+    //verifica se á linhas para selecionar
+    public boolean hasSelectableLine(){
+        for(int i = 0; i < boardgame.length; i++){
+            for(int j = 0; j < boardgame.length; j++){
+                if(boardgame[i][j]==2){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     
     public boolean move(int player, int positionOriginX, int positionOriginY, 
             int positionDestineX, int positionDestineY){

@@ -36,15 +36,15 @@ function WebSocketConnection() {
                         /* Recebendo o tabuleiro modificado */
                         corDaVez = msg.turn;
                         _self.writeResponse((corDaVez === cor) ? "É a sua vez de jogar." : "É a vez do adversário de jogar.");
-                        montarTabela(msg.tabuleiro, 'regular');
+                        montarTabela(msg.tabuleiro);
                         break;
-                    case 2:
+                    case 3:
                         corDaVez = msg.turn;
                         _self.writeResponse((corDaVez === cor) ? "Você fez um moinho, remova uma peça do adversário." : 
                                 "O adversário fez um moinho, uma peça sua será removida.");
-                        montarTabela(msg.tabuleiro, 'mill');
+                        montarTabela(msg.tabuleiro);
                         break;
-                    case 3:
+                    case 2:
                         /* Fim do jogo */
                         _self.writeResponse(msg.message);
                         this.webSocket.close();
