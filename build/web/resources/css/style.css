@@ -1,0 +1,58 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 10, 2019, 11:05:34 AM
+    Author     : ramon
+*/
+
+#boardGame {
+    display: none;
+    text-align: center;
+}
+
+table {
+    margin: 0 auto;
+}
+
+.selectable {
+    background: #D3D3D3;
+}
+
+.horizontal {
+    width: 60px;
+    height: 10px !important;
+    border: 3px solid black;
+}
+
+.vertical {
+    width: 10px !important;
+    height: 60px;
+    border: 3px solid black;
+}
+
+.square {
+    background: #ac7339;
+    border: 3px solid black;
+    border-radius: 15px;
+}
+
+.box {
+    background: #FFE4B5;
+    width: 49px;
+    height: 49px;
+}
+
+.highlight {
+    border-color: #00FF00;
+}
+
+.bluePlayer {
+   background: #0000EE;
+}
+
+.redPlayer {
+   background: #FF0000;
+}
