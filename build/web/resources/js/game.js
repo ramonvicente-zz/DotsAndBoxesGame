@@ -25,10 +25,10 @@ function coordinates(cell) {
     return [dr, dc];
 }
 
-function drag(ev) {
+/*function drag(ev) {
     ev.dataTransfer.effectAllowed = 'move';
     ev.dataTransfer.setData("text/plain", "[" + coordinates(this.parentNode) + "]");
-}
+}*/
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -39,10 +39,10 @@ function montarTabela(boardgame) {
     boardgame.forEach(function (row, rowIndex) {
         row.forEach(function (col, colIndex) {
             var cell = table.rows[rowIndex].cells[colIndex];
-            cell.style.backaground = (col === 0 ? "" : (col === 1 ? 'blue' 
+            cell.style.backaground = (col === 0 ? "" : (col === 3 ? 'blue' 
                     : 'red'));
                     
-            var x = cell.firstChild;
+            /*var x = cell.firstChild;
             if (x) {
                 x.draggable = true;
                 x.ondragstart = function(ev){
@@ -50,7 +50,7 @@ function montarTabela(boardgame) {
                     ev.dataTransfer.setData("text/plain", "[" + coordinates(this.parentNode) + "]");
                 };
             }
-            /*cell.ondragover = function(ev){
+            cell.ondragover = function(ev){
                 ev.preventDefault();
             };
             cell.ondrop = function(ev) {
@@ -67,7 +67,7 @@ function montarTabela(boardgame) {
             cell.onclick = function(event){
                 event.preventDefault();
                 console.log("entrou");
-                connection.webSocket.send(JSON.stringify({location: coordinates(this)}));
+                connection.webSocket.send(JSON.stringify({origem:[], location: coordinates(this)}));
             };
         });
     });

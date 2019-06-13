@@ -103,21 +103,21 @@ public class BoardGame {
         }
         
         //Pode inserir neste campo?
-        if(boardgame[positionX][positionY] == 1){
+        if(boardgame[positionX][positionY] == 0){
             return false;
         }
         
         /* Destino deve estar vazio */
-        if (boardgame[positionX][positionY] != 0) {
+        if (boardgame[positionX][positionY] != 1) {
             return false;
         }
         boolean ok = false;
         if(player == BLUE){
-            boardgame[positionX][positionY] = 1;
+            boardgame[positionX][positionY] = BLUE;
             ok = true;
         }
         if(player == RED){
-            boardgame[positionX][positionY] = 2;
+            boardgame[positionX][positionY] = RED;
             ok = true;
         }
         

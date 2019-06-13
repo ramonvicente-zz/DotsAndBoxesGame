@@ -50,7 +50,8 @@ public class GameEndpoint {
         JSONArray location = obj.getJSONArray("location");
         //String tipo = obj.getString("type");
         
-        if(boardGame.hasSelectableLine()){
+        if(1==1){
+            System.out.println("aqui entrou");
             boardGame.selectLine(session == player1 ? BoardGame.BLUE : BoardGame.RED, location.getInt(0), location.getInt(1));    
         }
         else if ((boardGame.redPoints > boardGame.bluePoints) && !boardGame.hasSelectableLine()) {
